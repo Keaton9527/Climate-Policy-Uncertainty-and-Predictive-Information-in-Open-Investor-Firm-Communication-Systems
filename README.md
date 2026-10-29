@@ -2,32 +2,45 @@
 
 Code for **Climate Policy Uncertainty and Predictive Information in Open Investor–Firm Communication Systems**.
 
-This repository combines the existing text-feature workflow with the forecasting and statistical analyses reported in the manuscript. The empirical release is in [`01_empirical/`](01_empirical/README.md), with an explicit map from manuscript tables to executable stages.
+All Python files are in `code/`. Source data, downloaded model weights, and final results are kept under `data/`. Features, selected variables, forecasts, and statistical inputs pass directly between functions in memory.
 
-## Start here
+## Run
 
-- **Forecasting and statistical reproduction** — [installation, inputs, commands, and table map](01_empirical/README.md).
-- **Input schemas and historical data versions** — [data dictionary](01_empirical/docs/data_dictionary.md).
-- **Checks performed for this release** — [validation record](01_empirical/docs/VALIDATION.md).
-- **Existing text-feature pipeline** — [original instructions](docs/TEXT_WORKFLOW.md), [`scripts/workflow.py`](scripts/workflow.py), and [`docs/FEATURES.md`](docs/FEATURES.md).
-
-From the repository root, install the empirical requirements in a dedicated Python 3.12 environment, copy `01_empirical/config/paper.yaml` to `paper.local.yaml` in the same directory, set the local input paths, then run:
+Use Python 3.12. From the repository root:
 
 ```sh
-python -m pip install -r 01_empirical/requirements.txt
-python 01_empirical/run.py --config 01_empirical/config/paper.local.yaml --phase all
+python -m venv .venv
+source .venv/bin/activate
+# Windows: .venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python code/run.py --config config.yaml
 ```
 
-The empirical package includes technical indicators and daily-panel preparation, five-method feature selection, rolling forecasts with five classifiers, question/reply ablation, market regimes, MCC/AUC/IC/RankIC, the CCPU joint-state comparison, the residual-CCPU and probability-loss checks, the firm-exposure comparison, and the paired source/environment comparisons. Its settings and source lineage are recorded in [`manifest.yaml`](01_empirical/manifest.yaml).
+Set the input paths in `config.yaml` before running. The command downloads the configured text models, fine-tunes MacBERT, evaluates the text classifiers, extracts and aggregates features, runs rolling forecasts and statistical analyses, and saves `data/result_*.csv`. No intermediate data files are required or generated.
 
-The new empirical package contains only analyses reported in the submitted manuscript and their preparation dependencies. Portfolio backtests, SHAP analyses, withdrawn experiments, the paused annotation study, and unreported sensitivity branches are excluded. The previously uploaded text implementation, historical files, and raw market workbooks are preserved; `legacy/` is historical source material, not an additional empirical reproduction stage.
+To use existing MacBERT weights, set `text.checkpoint` to their directory. Otherwise, leave it `null` to train. Model caches are stored in `data/models/`. Configuration paths are relative to the configuration file.
 
-## Data access
+## Inputs
 
-Private interaction text, annotations, precomputed sentiment, forecasting panels, predictions, and the policy/exposure workbooks are supplied locally. See the manuscript's Data Availability Statement for access conditions. The original market workbooks already present under `data/raw/` retain their existing provenance and coverage; no additional dataset is published in this update.
+Place the following source files in `data/` or update their paths in `config.yaml`.
 
-Exact historical reproduction starts from the study panel or its original record-feature and daily-sentiment inputs. Newly extracted text features are useful for rerunning the workflow on new inputs, but do not by themselves recover the separately precomputed historical sentiment series.
+| Input | Required fields |
+| --- | --- |
+| `qa.csv` | `stock_code`, `datetime`, `question`, `reply_time`, `reply`; optional `whether_answer` (1/0 or 已回复/未回复) |
+| `annotations.xlsx` | `text`, `label` (−1, 0, 1); CSV is also supported |
+| Market prices | Included `TRD_FwardQuotation*.xlsx`, or a CSV with `stock_code`, `datetime`, `open`, `high`, `low`, `close`, `change`, `pct_chg`, `volume`, `amount` |
+| `nev_index.xlsx` | `Date`, `close` |
+| `ccpu.xlsx` | Sheet `Daily`: `date`, `CCPU` |
+| `epu.xlsx` | Sheet `EPU 2000 onwards`: `year`, `month`, `EPU` |
+| `exposure.xlsx` | `stkcd`, `year`, `转型风险指数`, `转型风险总词频`, `年报全文总词数` |
+| `exposure_words.xlsx` | `文件名`, `总词数`, and transition-word columns from `节能` through `集约` |
 
-## 中文说明
+Stock codes use six digits. Market CSV units are percent for `pct_chg`, lots of 100 shares for `volume`, and thousands of yuan for `amount`; the included workbooks are converted automatically. Exposure filenames contain the stock code, fiscal year at characters 8–11, and a trailing publication date (`YYYY-M-D`). Supply the remaining source data according to the paper's Data Availability Statement.
 
-论文实际使用的预测与统计检验代码位于 `01_empirical/`。运行顺序、正文表格对应关系、输入格式和本次核验结果均在该目录的说明中。已有文本特征代码和市场数据保持不变；本次只补充正文涉及的实证分析及必要的数据准备代码，不上传私有问答、标注、模型、预测或中间数据。
+## Results
+
+The pipeline produces Tables 1–7 and A2–A7, plus the residual-CCPU, probability-loss, and exposure analyses. Technical-indicator formulas (Table A1), rolling periods, model settings, and bootstrap parameters are implemented in `code/` and `config.yaml`. Figure 1 uses the rolling periods reported in Table 1. Numerical results can vary with model initialization and computing environment.
+
+## 中文
+
+修改 `config.yaml` 中的数据路径后运行上述命令，即可连续完成模型下载、文本特征提取和实证实验。代码集中在 `code/`，数据集中在 `data/`。中间数据通过变量传递，最终结果保存为 `data/result_*.csv`。
