@@ -18,24 +18,6 @@ Set the input paths in `config.yaml` before running. The command downloads the c
 
 To use existing MacBERT weights, set `text.checkpoint` to their directory. Otherwise, leave it `null` to train. Model caches are stored in `data/models/`. Configuration paths are relative to the configuration file.
 
-## Inputs
-
-Place the following source files in `data/` or update their paths in `config.yaml`.
-
-| Input | Required fields |
-| --- | --- |
-| `study_stocks.csv` (included) | Fixed 61-firm paper sample, one six-digit `stock_code` per row |
-| `新能源产业链文本数据.csv.gz` (included) | `stock_code`, `datetime`, `question`, `reply_time`, `reply`; optional `whether_answer` (1/0 or 已回复/未回复) |
-| `annotations.xlsx` | `text`, `label` (−1, 0, 1); CSV is also supported |
-| Market prices | Included `TRD_FwardQuotation*.xlsx`, or a CSV with `stock_code`, `datetime`, `open`, `high`, `low`, `close`, `change`, `pct_chg`, `volume`, `amount` |
-| `nev_index.xlsx` | `Date`, `close` |
-| `ccpu.xlsx` | Sheet `Daily`: `date`, `CCPU` |
-| `epu.xlsx` | Sheet `EPU 2000 onwards`: `year`, `month`, `EPU` |
-| `exposure.xlsx` | `stkcd`, `year`, `转型风险指数`, `转型风险总词频`, `年报全文总词数` |
-| `exposure_words.xlsx` | `文件名`, `总词数`, and transition-word columns from `节能` through `集约` |
-
-The pipeline reads `study_stocks.csv` once and filters both QA and market inputs to this fixed sample before feature extraction.
-
 The included QA file is losslessly compressed; the pipeline reads it directly. Stock codes use six digits. Market CSV units are percent for `pct_chg`, lots of 100 shares for `volume`, and thousands of yuan for `amount`; the included workbooks are converted automatically. Exposure filenames contain the stock code, fiscal year at characters 8–11, and a trailing publication date (`YYYY-M-D`). Supply the remaining source data according to the paper's Data Availability Statement.
 
 ## Results
