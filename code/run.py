@@ -3,7 +3,7 @@
 import argparse
 from pathlib import Path
 from common import load_config, progress_logger
-from inputs import read_inputs
+from inputs import read_inputs, select_study_inputs, require_stock_codes
 from text_features import run_text
 from market import calculate_technical_indicators
 from daily import build_daily
@@ -18,12 +18,15 @@ from supplementary import run_supplementary
 
 
 def run_pipeline(inputs, config):
+    inputs = select_study_inputs(inputs, config)
     logger = progress_logger()
     logger.info('Text models and record features')
     records, text_table = run_text(inputs['qa'], inputs['annotations'], config)
     market = calculate_technical_indicators(inputs['market'])
     features = build_daily(records, market)
+    require_stock_codes(features, inputs['stock_codes'], 'Daily features')
     raw, panel = prepare_panel(features, config)
+    require_stock_codes(panel, inputs['stock_codes'], 'Modeling sample')
     windows = generate_windows(config)
     regimes, results = run_descriptive(raw, panel, windows, inputs, config)
     results['table_A2_language_models'] = text_table

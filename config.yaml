@@ -1,6 +1,7 @@
 seed: 42
 jobs: 4
 paths:
+  stocks: data/study_stocks.csv
   market: data/TRD_FwardQuotation*.xlsx
   qa: data/新能源产业链文本数据.csv.gz
   annotations: data/annotations.xlsx
@@ -12,6 +13,7 @@ paths:
   output: data
   model_cache: data/models
 sample:
+  expected_stocks: 61
   start: 2017-01-01
   end: 2024-06-30
   first_validation_start: 2019-01-01

@@ -10,3 +10,4 @@ data/*
 !data/TRD_FwardQuotation*.xlsx
 !data/nev_index.xlsx
 !data/新能源产业链文本数据.csv.gz
+!data/study_stocks.csv

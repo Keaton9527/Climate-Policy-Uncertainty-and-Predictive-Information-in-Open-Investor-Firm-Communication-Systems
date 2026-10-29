@@ -4,6 +4,33 @@ from pathlib import Path
 import pandas as pd
 
 
+def read_stock_codes(path, expected_count):
+    frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    if list(frame.columns) != ['stock_code']:
+        raise ValueError('Stock list must contain one stock_code column')
+    codes = frame.stock_code
+    if len(codes) != expected_count or codes.duplicated().any() or not codes.str.fullmatch(r'\d{6}').all():
+        raise ValueError(f'Stock list must contain {expected_count} unique six-digit codes')
+    return codes.tolist()
+
+
+def require_stock_codes(frame, codes, label):
+    expected, actual = set(codes), set(frame.stock_code)
+    if actual != expected:
+        raise ValueError(f'{label}: missing stocks {sorted(expected-actual)}; unexpected stocks {sorted(actual-expected)}')
+
+
+def select_study_inputs(inputs, config):
+    codes = inputs['stock_codes']
+    if len(codes) != config['sample']['expected_stocks'] or len(set(codes)) != len(codes):
+        raise ValueError('Study stock list has an unexpected size or duplicate codes')
+    selected = dict(inputs)
+    for name in ['qa', 'market']:
+        selected[name] = inputs[name].loc[inputs[name].stock_code.isin(codes)].copy()
+        require_stock_codes(selected[name], codes, name)
+    return selected
+
+
 def read_market(value):
     files = sorted(glob(value))
     if not files:
@@ -36,9 +63,10 @@ def read_market(value):
 def read_inputs(config):
     paths = config['paths']
     # Check sources before model downloads or training.
-    for key in ['qa','annotations','nev_index','ccpu','epu','exposure','exposure_words']:
+    for key in ['stocks','qa','annotations','nev_index','ccpu','epu','exposure','exposure_words']:
         if not Path(paths[key]).is_file():
             raise FileNotFoundError(f'Missing input {key}: {paths[key]}')
+    stock_codes = read_stock_codes(paths['stocks'], config['sample']['expected_stocks'])
     market = read_market(paths['market'])
     qa = pd.read_csv(paths['qa'],dtype={'stock_code':str})
     qa['stock_code'] = qa.stock_code.str.zfill(6)
@@ -52,7 +80,7 @@ def read_inputs(config):
             raise ValueError('whether_answer must be 1/0 or 已回复/未回复')
         qa['whether_answer'] = flags.astype(int)
     annotations = pd.read_csv(paths['annotations']) if Path(paths['annotations']).suffix.lower()=='.csv' else pd.read_excel(paths['annotations'])
-    inputs = {'market':market,'qa':qa,'annotations':annotations,
+    inputs = {'stock_codes':stock_codes,'market':market,'qa':qa,'annotations':annotations,
         'nev_index':pd.read_excel(paths['nev_index']),
         'ccpu':pd.read_excel(paths['ccpu'],sheet_name=config['ccpu']['sheet'])[['date','CCPU']],
         'epu':pd.read_excel(paths['epu'],sheet_name='EPU 2000 onwards')[['year','month','EPU']],

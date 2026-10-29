@@ -2,17 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 
 def generate_text_factor(records):
-    """
-    生成文本特征因子
-
-    参数:
-    records: DataFrame, 逐条文本特征
-
-    返回:
-    tuple: (df, drop_codes)
-        - df: DataFrame, 包含问题相关特征和回答相关特征的DataFrame
-        - drop_codes: list, 需要剔除的股票代码列表(提问数量最少的前5%)
-    """
+    """Aggregate record features for the already selected study stocks."""
     text_df = records.copy()
 
     # 拆分问题和答案为两个 dataframe，方便后续按日度聚合
@@ -55,12 +45,6 @@ def generate_text_factor(records):
     ans_df.loc[ans_df['whether_answer'] == 0, 'ans_similarity'] = 0
     ans_df.loc[ans_df['whether_answer'] == 0, 'ans_time_diff'] = 66
     ans_df.loc[ans_df['whether_answer'] == 0, 'ans_counts'] = 0
-
-    # 筛选出提问数量最少的前5%的股票代码
-    drop_df = ques_df.groupby('stock_code').agg({'ques_counts': 'sum'}).reset_index()
-    drop_df = drop_df.sort_values(by='ques_counts', ascending=True)
-    drop_df = drop_df.head(int(len(drop_df) * 0.05))
-    drop_codes = drop_df['stock_code'].tolist()
 
     # 初始化聚合字段列表
     agg_fields = {}
@@ -111,20 +95,14 @@ def generate_text_factor(records):
     # 当日若没有回复，则回答的时间差为0，回答的情感极性为0，回答的情感强度为0，回答的相似度为0.5
     df['ans_time_diff'] = df['ans_time_diff'].fillna(0)
 
-    return df, drop_codes
+    return df
 
 
 def build_daily(records, market):
     print("正在生成文本特征...")
-    text_df, drop_codes = generate_text_factor(records)
+    text_df = generate_text_factor(records)
     print("正在合并行情与文本特征...")
     ohlcv_df = market.copy()
-
-    # 删除drop_codes 中的股票
-    ohlcv_df = ohlcv_df[~ohlcv_df['stock_code'].isin(drop_codes)]
-
-    # 删除text_df 中stock_code 在drop_codes 中的行
-    text_df = text_df[~text_df['stock_code'].isin(drop_codes)]
 
     # 将df 和 ohlcv_df 按stock_code 和 datetime 合并
     df = pd.merge(text_df, ohlcv_df, how='outer', on=['stock_code', 'datetime'])
