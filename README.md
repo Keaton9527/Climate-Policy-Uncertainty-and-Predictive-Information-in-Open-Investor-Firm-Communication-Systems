@@ -38,7 +38,3 @@ The included QA file is losslessly compressed; the pipeline reads it directly. S
 ## Results
 
 The pipeline produces Tables 1–7 and A2–A7, plus the residual-CCPU, probability-loss, and exposure analyses. Technical-indicator formulas (Table A1), rolling periods, model settings, and bootstrap parameters are implemented in `code/` and `config.yaml`. Figure 1 uses the rolling periods reported in Table 1. Numerical results can vary with model initialization and computing environment.
-
-## 中文
-
-修改 `config.yaml` 中的数据路径后运行上述命令，即可连续完成模型下载、文本特征提取和实证实验。代码集中在 `code/`，数据集中在 `data/`。中间数据通过变量传递，最终结果保存为 `data/result_*.csv`。
