@@ -1,0 +1,26 @@
+{
+  "release_date": "2026-10-29",
+  "base_public_commit": "c08c71663eee090abfd13ffb9c0e12f0e5511b27",
+  "submission_code_sha256": "0d4f0111ff904b56e9dddc2b3ee81926eb3bd8948ee851821f25a26e37633740",
+  "manuscript_sha256": "0d1a69f7c6c5b5ec0e28b1a8a7cdc7868e19b962a376701170cd1954f8a30613",
+  "source_sha256": {
+    "experiments/001_数据准备/code/20250520数据处理2-生成股票技术因子.py": "cdc01f63a3a7549992d09e9b1aed14693be41cda4e9349fca474fedef78e45e1",
+    "experiments/001_数据准备/code/20250603数据处理5-合并技术因子和文本特征.py": "0d5461cde0ec7c23d5c3a6c6078c9bd2643272001fbefca9ce865c4145da70f1",
+    "experiments/007_问答情绪特征/code/构建共同股票情绪基准.py": "92446684ee2fd4c3031383d6117c3deff534c47a440da19f82e9fcdc324db3a3",
+    "experiments/008_论文实证重跑/code/run_empirical.py": "cefeada6735a3a3efd5e2ead1fa68f0d066e11eeebfb24dedcd1c1de130b84ab",
+    "experiments/012_IC与RankIC补充/code/run_ic_rankic.py": "8d66e0f141a32c98ebe7a6bc049016a54a80243100ada74a808a083512e025f1",
+    "experiments/013_市场状态文本消融/code/run_market_regime_ablation.py": "c284db03053eae8961800d15f459b82a52d575be979b5d7f2026f038bb47acb2",
+    "experiments/015_市场与CCPU联合检验/code/revision_analysis.py": "cb5b00f631dc963a9ab075cc7ac50f9428681a288a48a1bae554b6365be3fd0d",
+    "experiments/015_市场与CCPU联合检验/code/joint_four_metrics.py": "a4ea2f28e2ba0053a50efacf5fc18e64495efe64c7561d8c7e5368089d271ec3",
+    "experiments/021_来源与环境增量比较/code/run_comparisons.py": "26533655f2196e5d513c02288af08e97d8bde4cef153374416c4b196f10705dd"
+  },
+  "adaptations": [
+    "Modular core copied from the submitted Code S1 package.",
+    "Removed descriptive proxies no longer in Table 2; raw timestamp measures retain the verified definitions.",
+    "Integrated experiment 021 with the core forecast directory and configuration.",
+    "Included the reported 015/016/017 statistics; omitted unreported sensitivity branches and internal report-writing dependencies.",
+    "Made historical preparation paths configurable and replaced pandas chained updates with explicit assignment.",
+    "Retained the observed sample without the ineffective historical IPO-date exclusion."
+  ],
+  "private_data_included": false
+}

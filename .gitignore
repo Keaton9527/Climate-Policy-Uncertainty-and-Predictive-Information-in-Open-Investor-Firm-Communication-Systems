@@ -16,3 +16,14 @@ private/
 data/raw/qa/
 data/raw/annotation/
 configs/*.local.json
+
+# Private empirical inputs and generated artifacts
+01_empirical/inputs/
+01_empirical/outputs/
+01_empirical/config/*.local.yaml
+*.log
+.DS_Store
+
+.venv-empirical/
+data/interim/
+data/results/

@@ -4,20 +4,144 @@
     "sha256": "e240321bab53dc3257a79691469390b1f2824579f982eae69936931f073f8a2c"
   },
   ".gitignore": {
-    "bytes": 174,
-    "sha256": "f5347c759f42537a64599f3f6c35d863b5fe676ad88864d60537df345093b439"
+    "bytes": 364,
+    "sha256": "038ce64d9a5ceaea274360bc5d5c95dab2692bef20ed0bc257c6fa5d7d1d14ec"
+  },
+  "01_empirical/README.md": {
+    "bytes": 7937,
+    "sha256": "0a6562b39c9bc207fda74e58d10501774e64dbb7fc0db0c0facbcfd3c590042d"
+  },
+  "01_empirical/config/paper.yaml": {
+    "bytes": 1738,
+    "sha256": "aaac185406c84ae8b41273d03cd0c70ddbac3db9ae6fc8c398182db2f55b322e"
+  },
+  "01_empirical/docs/SOURCE_LINEAGE.json": {
+    "bytes": 2295,
+    "sha256": "639a302156fb90a30b07a4691ae355b9eaa863aab950677bdb24dad3c13c2719"
+  },
+  "01_empirical/docs/VALIDATION.md": {
+    "bytes": 3139,
+    "sha256": "41efd706d46acb87e631254071818222dac2c2657ea08ec3aa25757b82f66501"
+  },
+  "01_empirical/docs/data_dictionary.md": {
+    "bytes": 6038,
+    "sha256": "5bcd2222cbe2ebdbd351a95fce66b8640d28b6147cbffe4bcbf5660dca9f1568"
+  },
+  "01_empirical/manifest.yaml": {
+    "bytes": 1512,
+    "sha256": "a9cb30d1c747cb23545466620c18903c334b0acd823e91523237464941900537"
+  },
+  "01_empirical/prepare_baseline.py": {
+    "bytes": 658,
+    "sha256": "c65f3ac505345dbda209ca0a12b9bc8e187ce5eb01ffb2300918ff8c590d0318"
+  },
+  "01_empirical/prepare_daily.py": {
+    "bytes": 11788,
+    "sha256": "8d715ccaa1f766e8e1b059a10aa4048d4d1bffd471689dab07d6279caa4dd763"
+  },
+  "01_empirical/prepare_market.py": {
+    "bytes": 4462,
+    "sha256": "2915ca8a6c9e1655e76d960d5ad9e2a94ded9d5a446c7328e791d4b09cecb1bd"
+  },
+  "01_empirical/requirements.txt": {
+    "bytes": 203,
+    "sha256": "dd38390fd2d8d5efcbbed3e7fb037c990883e161c561ab4ab58f9711c208be52"
+  },
+  "01_empirical/run.py": {
+    "bytes": 3772,
+    "sha256": "e7e18421c87df42eddfdaa5f170ca927744f560d3cbb2674a566f89ae332aa79"
+  },
+  "01_empirical/src/nev_forecasting/__init__.py": {
+    "bytes": 69,
+    "sha256": "b14c4633d6aa43dcdcb0f00111c072fc488caf8627bf662d10bfa77bc09a9227"
+  },
+  "01_empirical/src/nev_forecasting/baseline.py": {
+    "bytes": 2833,
+    "sha256": "15b81a4705a75e339998a57bde3ca4db15bb07f15f07e245de3833e5af666646"
+  },
+  "01_empirical/src/nev_forecasting/climate.py": {
+    "bytes": 2976,
+    "sha256": "60c3ff0a16ecb2d940e21185e7c08f966d7272442a26e4ab2e2793a4b2d50e01"
+  },
+  "01_empirical/src/nev_forecasting/climate_states.py": {
+    "bytes": 4617,
+    "sha256": "fa326f09d84f490d4c6312cc049962bb281ef35408801589079d5d16d1df05ad"
+  },
+  "01_empirical/src/nev_forecasting/common.py": {
+    "bytes": 2021,
+    "sha256": "058bef924116242119f3cda3efa7d4ca9d6e2648bd941bd58c70832ded721bbb"
+  },
+  "01_empirical/src/nev_forecasting/data.py": {
+    "bytes": 3833,
+    "sha256": "7d2485d40008a3d466421ecf1962c7f09c1037390563889682adadb463c6ff6b"
+  },
+  "01_empirical/src/nev_forecasting/descriptive.py": {
+    "bytes": 5347,
+    "sha256": "d99fd6cc9eb8a74dfb3d77932764db3fbfad774ad06d3c243873430138f32ac0"
+  },
+  "01_empirical/src/nev_forecasting/evaluation.py": {
+    "bytes": 3857,
+    "sha256": "723fb11cb76364a453118c509e7bb0c6e94ec7c6cfea823401bbd9a7701a8e50"
+  },
+  "01_empirical/src/nev_forecasting/forecasting.py": {
+    "bytes": 3973,
+    "sha256": "72efa075710fa780104508400d0a1464696b17aed34d8cd89d453ddfe346d0db"
+  },
+  "01_empirical/src/nev_forecasting/metrics.py": {
+    "bytes": 4107,
+    "sha256": "7bd2233201c9550bba01a5da93e83ea75a049869f4eef240542546a02d9c38c9"
+  },
+  "01_empirical/src/nev_forecasting/models.py": {
+    "bytes": 4709,
+    "sha256": "e0a28fbb9dcb4a1cb7578c3ae648bcc775aa5121a6ea4ae96c7e5756bb0e0e91"
+  },
+  "01_empirical/src/nev_forecasting/robustness.py": {
+    "bytes": 14924,
+    "sha256": "e20c7ff4eb7b03e3aea721f526306b11e2b738b17ba92c9e3d590e229d84c541"
+  },
+  "01_empirical/src/nev_forecasting/selection.py": {
+    "bytes": 6340,
+    "sha256": "9f4e8fdc568e8157f7676c92011d1001bb1100dea005c6b641210c6705d57379"
+  },
+  "01_empirical/src/nev_forecasting/source_comparisons.py": {
+    "bytes": 4666,
+    "sha256": "73a69a463df3b92bfb8af5ba4d7fd1459848ca63c6e008829b9a1ac4b39fdb4f"
+  },
+  "01_empirical/src/nev_forecasting/supplementary.py": {
+    "bytes": 5306,
+    "sha256": "b110cf00c0e282d70f3b3240c23ded2742d69e3208b904ee482ffb42c4990b50"
+  },
+  "01_empirical/src/nev_forecasting/tables.py": {
+    "bytes": 2984,
+    "sha256": "35309e1a0ff849fd522305e50c7e1a8f33fe285ab5b7fa5d43df4736ef0c988f"
+  },
+  "01_empirical/tests/test_statistics.py": {
+    "bytes": 5865,
+    "sha256": "83f92c2b8fbd1bdd120c7d363b8e5309cb2eb7538473f82e30c5a29d6bdae2ee"
   },
   "README.md": {
-    "bytes": 9137,
-    "sha256": "51b479648fc1dddfb786a26a6ed129f1a3eb2caeae954e4f384c3b310f3682e0"
-  },
-  "requirements.txt": {
-    "bytes": 197,
-    "sha256": "aa4ca1f951bef809e277f993d29547cfecb8c8e1e43cafc4f3650325e38cf782"
+    "bytes": 3319,
+    "sha256": "83d0e4260fae019b0a09dda4c7eef7e92e0ef0b99646729aba8a8875c3c622cc"
   },
   "configs/workflow.json": {
     "bytes": 1854,
     "sha256": "6aa3bb8d04b5a86fe945a5f37f89d808257fc637da6bc91225b55be3bf7d6854"
+  },
+  "data/raw/stock/TRD_FwardQuotation1.xlsx": {
+    "bytes": 8489660,
+    "sha256": "3d53a71aa304fbb761bac0310a63459d81dc15d0d1566ee41e791c8d9f6d8ecd"
+  },
+  "data/raw/stock/TRD_FwardQuotation2.xlsx": {
+    "bytes": 9669185,
+    "sha256": "732d79bf25841276224c5d05f48c468a918d5c37e2f3ffba1d8408e60555609b"
+  },
+  "data/raw/stock/TRD_FwardQuotation3.xlsx": {
+    "bytes": 9780468,
+    "sha256": "7e337014c3e00c1a8840c2c1e133382555689e95cbec1999ceb95358be67b608"
+  },
+  "data/raw/wind/新能源汽车产业链指数.xlsx": {
+    "bytes": 45085,
+    "sha256": "245ab9d2c23811a0cad8e9e2eab984450ac5f93375b0633cd7878b59b3e841fd"
   },
   "docs/FEATURES.md": {
     "bytes": 2099,
@@ -31,13 +155,17 @@
     "bytes": 4226,
     "sha256": "6aec960b7251316c2fdceca18dc93ae626c5f40ba0de55df85bbdc70d804aea9"
   },
-  "docs/source_manifest.json": {
-    "bytes": 4181,
-    "sha256": "4138767d645813cdaaf64b5faf2a6be0e61c05d04abf816006d9e6369095c79e"
+  "docs/TEXT_WORKFLOW.md": {
+    "bytes": 9033,
+    "sha256": "91cb49baf06faade1347eaa04e5e65fb22544401bc7c5a8b3f4eede470401049"
   },
   "docs/VALIDATION.json": {
     "bytes": 1357,
     "sha256": "9c670928c3392695ae7ee3f264231a18608bc7f6bafb65a8fc5f7ce70b93aaf6"
+  },
+  "docs/source_manifest.json": {
+    "bytes": 4181,
+    "sha256": "4138767d645813cdaaf64b5faf2a6be0e61c05d04abf816006d9e6369095c79e"
   },
   "legacy/1_LLM_textFactorGenerate.ipynb": {
     "bytes": 6031,
@@ -83,6 +211,10 @@
     "bytes": 1176,
     "sha256": "ac18676f9c159a9e3225555cc180207de8fd494f0aa2278c8c18ab83c3d287e6"
   },
+  "requirements.txt": {
+    "bytes": 197,
+    "sha256": "aa4ca1f951bef809e277f993d29547cfecb8c8e1e43cafc4f3650325e38cf782"
+  },
   "scripts/configure.py": {
     "bytes": 959,
     "sha256": "da30b6a3e92fd08e6a9f1e676b2c44e38760d8e20ae0d3f2754ff177cdca5838"
@@ -94,21 +226,5 @@
   "tests/test_workflow.py": {
     "bytes": 5013,
     "sha256": "c5a774343697d24d0bca08481c2f03a4ec99b37153bd6dd0f9979237451783db"
-  },
-  "data/raw/stock/TRD_FwardQuotation1.xlsx": {
-    "bytes": 8489660,
-    "sha256": "3d53a71aa304fbb761bac0310a63459d81dc15d0d1566ee41e791c8d9f6d8ecd"
-  },
-  "data/raw/stock/TRD_FwardQuotation2.xlsx": {
-    "bytes": 9669185,
-    "sha256": "732d79bf25841276224c5d05f48c468a918d5c37e2f3ffba1d8408e60555609b"
-  },
-  "data/raw/stock/TRD_FwardQuotation3.xlsx": {
-    "bytes": 9780468,
-    "sha256": "7e337014c3e00c1a8840c2c1e133382555689e95cbec1999ceb95358be67b608"
-  },
-  "data/raw/wind/新能源汽车产业链指数.xlsx": {
-    "bytes": 45085,
-    "sha256": "245ab9d2c23811a0cad8e9e2eab984450ac5f93375b0633cd7878b59b3e841fd"
   }
 }
