@@ -1,0 +1,114 @@
+{
+  ".gitattributes": {
+    "bytes": 61,
+    "sha256": "e240321bab53dc3257a79691469390b1f2824579f982eae69936931f073f8a2c"
+  },
+  ".gitignore": {
+    "bytes": 174,
+    "sha256": "f5347c759f42537a64599f3f6c35d863b5fe676ad88864d60537df345093b439"
+  },
+  "README.md": {
+    "bytes": 9137,
+    "sha256": "51b479648fc1dddfb786a26a6ed129f1a3eb2caeae954e4f384c3b310f3682e0"
+  },
+  "requirements.txt": {
+    "bytes": 197,
+    "sha256": "aa4ca1f951bef809e277f993d29547cfecb8c8e1e43cafc4f3650325e38cf782"
+  },
+  "configs/workflow.json": {
+    "bytes": 1854,
+    "sha256": "6aa3bb8d04b5a86fe945a5f37f89d808257fc637da6bc91225b55be3bf7d6854"
+  },
+  "docs/FEATURES.md": {
+    "bytes": 2099,
+    "sha256": "a059e6f7ac2b1d2c92c94322292863a5589d6b6138f16674b21269369800eb3e"
+  },
+  "docs/HISTORICAL_SELECTION.md": {
+    "bytes": 1541,
+    "sha256": "4edb2df8829e2ae6813b2a6f918583765a9c112ddb5d8376fb01733dd15ac20e"
+  },
+  "docs/RAW_DATA_MANIFEST.json": {
+    "bytes": 4226,
+    "sha256": "6aec960b7251316c2fdceca18dc93ae626c5f40ba0de55df85bbdc70d804aea9"
+  },
+  "docs/source_manifest.json": {
+    "bytes": 4181,
+    "sha256": "4138767d645813cdaaf64b5faf2a6be0e61c05d04abf816006d9e6369095c79e"
+  },
+  "docs/VALIDATION.json": {
+    "bytes": 1357,
+    "sha256": "9c670928c3392695ae7ee3f264231a18608bc7f6bafb65a8fc5f7ce70b93aaf6"
+  },
+  "legacy/1_LLM_textFactorGenerate.ipynb": {
+    "bytes": 6031,
+    "sha256": "b4bc89251e8276a59b1fa136cf5e0c88bcfc98291a0f760d830e8aab59213be3"
+  },
+  "legacy/1_textDataProcessing.ipynb": {
+    "bytes": 11281,
+    "sha256": "c4c124db0d5744f0032f556fd9e3a6e78a99f4a122c128d8eab4e2fa349bb8cd"
+  },
+  "legacy/20250422四种bert模型输出打分结果.py.txt": {
+    "bytes": 4245,
+    "sha256": "bc6ea5ea9a83ebb4d6a8029e1a4d985a70dafe7f9617732921a1fc319cb31939"
+  },
+  "legacy/20250521千问大模型微调.py.txt": {
+    "bytes": 10987,
+    "sha256": "aec58c41e25ca3c2e80480b4a545e91c9c4f1e5106e0fc8cba869a775b169ec2"
+  },
+  "legacy/20250521千问大模型测试.py.txt": {
+    "bytes": 2126,
+    "sha256": "83bff6b6500971b7509eb32bd4207d420ad9ebad44b98863537a67a6d189df5a"
+  },
+  "legacy/20250522千问大模型输出测试集结果.py.txt": {
+    "bytes": 9211,
+    "sha256": "9314891d293f4f6a4428d4ab1017f1072b4fa9948ba5da39152dbda6a68d1250"
+  },
+  "legacy/20250522大模型情感评分效果对比.py.txt": {
+    "bytes": 2926,
+    "sha256": "be2049a4e7346a5d844bdbe359dbefc3f4cc04004a2788af2f7a970b39a652a2"
+  },
+  "legacy/20250528MacBert情绪打分.py.txt": {
+    "bytes": 6775,
+    "sha256": "c0afe044fbcaaab7a1d8f9bcb40c0a099786998abf513aa068d41ddbe52df806"
+  },
+  "legacy/20250528MacBert模型微调.py.txt": {
+    "bytes": 9832,
+    "sha256": "c20fbb573baa76f6a9089b0ce0e7dc3832c648b9cc8bdd592f68ee74630e6792"
+  },
+  "legacy/3_sze_nlp.ipynb": {
+    "bytes": 18645,
+    "sha256": "26746dea97994ed32dbe6475b95c468d20980123e7bedc2b463dd79d0122278e"
+  },
+  "legacy/bertConfig.yaml": {
+    "bytes": 1176,
+    "sha256": "ac18676f9c159a9e3225555cc180207de8fd494f0aa2278c8c18ab83c3d287e6"
+  },
+  "scripts/configure.py": {
+    "bytes": 959,
+    "sha256": "da30b6a3e92fd08e6a9f1e676b2c44e38760d8e20ae0d3f2754ff177cdca5838"
+  },
+  "scripts/workflow.py": {
+    "bytes": 17921,
+    "sha256": "7bfc56f0a7ac252f9ddf31bcd0dcda55c2ac2c0e5c3bd2ac3dee92577823b241"
+  },
+  "tests/test_workflow.py": {
+    "bytes": 5013,
+    "sha256": "c5a774343697d24d0bca08481c2f03a4ec99b37153bd6dd0f9979237451783db"
+  },
+  "data/raw/stock/TRD_FwardQuotation1.xlsx": {
+    "bytes": 8489660,
+    "sha256": "3d53a71aa304fbb761bac0310a63459d81dc15d0d1566ee41e791c8d9f6d8ecd"
+  },
+  "data/raw/stock/TRD_FwardQuotation2.xlsx": {
+    "bytes": 9669185,
+    "sha256": "732d79bf25841276224c5d05f48c468a918d5c37e2f3ffba1d8408e60555609b"
+  },
+  "data/raw/stock/TRD_FwardQuotation3.xlsx": {
+    "bytes": 9780468,
+    "sha256": "7e337014c3e00c1a8840c2c1e133382555689e95cbec1999ceb95358be67b608"
+  },
+  "data/raw/wind/新能源汽车产业链指数.xlsx": {
+    "bytes": 45085,
+    "sha256": "245ab9d2c23811a0cad8e9e2eab984450ac5f93375b0633cd7878b59b3e841fd"
+  }
+}

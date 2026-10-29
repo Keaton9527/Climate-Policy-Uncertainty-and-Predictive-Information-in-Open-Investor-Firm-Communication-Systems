@@ -1,0 +1,174 @@
+import torch
+import pandas as pd
+import numpy as np
+from transformers import BertTokenizer, BertForSequenceClassification
+from sklearn.metrics.pairwise import cosine_similarity
+from tqdm import tqdm
+from datetime import datetime
+
+def load_model_and_tokenizer():
+    """加载模型和分词器"""
+    print("加载模型和分词器...")
+    model_path = "./macbert_finetuned"
+    
+    # 加载分词器
+    tokenizer = BertTokenizer.from_pretrained(model_path)
+    
+    # 加载模型
+    model = BertForSequenceClassification.from_pretrained(model_path)
+    
+    # 如果有GPU则使用GPU
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = model.to(device)
+    model.eval()
+    
+    return model, tokenizer, device
+
+def get_sentiment_score(text, model, tokenizer, device):
+    """获取文本的情感得分"""
+    # 确保输入是字符串类型
+    if not isinstance(text, str):
+        text = str(text)
+        if text == 'nan':
+            return 0, 0, np.zeros(768)  # 返回中性情感和零向量
+    
+    # 对文本进行编码
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=512, padding=True)
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+    
+    # 获取模型输出
+    with torch.no_grad():
+        outputs = model(**inputs, output_hidden_states=True)
+        logits = outputs.logits
+        probs = torch.nn.functional.softmax(logits, dim=-1)
+        
+        # 获取每个类别的概率
+        neg_prob = probs[0][0].item()  # Negative (-1)
+        neu_prob = probs[0][1].item()  # Neutral (0)
+        pos_prob = probs[0][2].item()  # Positive (1)
+        
+        # 获取情感得分
+        sentiment_score = -1 * neg_prob + 0 * neu_prob + 1 * pos_prob
+        
+        # 获取预测标签
+        pred_label = torch.argmax(probs, dim=-1).item()
+        label_map = {0: -1, 1: 0, 2: 1}
+        pred_label = label_map[pred_label]
+        
+        # 获取文本的向量表示（使用最后一层的[CLS]向量）
+        embeddings = outputs.hidden_states[-1][:, 0, :].cpu().numpy()
+        
+    return sentiment_score, pred_label, embeddings[0]
+
+def process_batch(texts, model, tokenizer, device, batch_size=32):
+    """批量处理文本"""
+    results = []
+    for i in tqdm(range(0, len(texts), batch_size), desc="文本批量处理中"):
+        batch_texts = texts[i:i + batch_size]
+        # 过滤掉空值
+        batch_texts = [text for text in batch_texts if pd.notna(text)]
+        if not batch_texts:  # 如果批次为空，跳过
+            continue
+        batch_results = [get_sentiment_score(text, model, tokenizer, device) for text in batch_texts]
+        results.extend(batch_results)
+    return results
+
+def standardize_datetime(dt_str):
+    """标准化时间字符串格式"""
+    try:
+        # 如果已经是标准格式，直接返回
+        datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
+        return dt_str
+    except ValueError:
+        try:
+            # 处理缺少秒数的情况
+            dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M')
+            return dt.strftime('%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            return None
+
+def main():
+    # 加载模型和分词器
+    model, tokenizer, device = load_model_and_tokenizer()
+    
+    # 读取数据
+    print("读取数据...")
+    df = pd.read_csv("F:/论文/投资者论坛/dataset/text_data/新能源产业链文本数据.csv", converters={'stock_code':str})
+    df = df.iloc[:, ]
+
+    # 处理whether_answer
+    df['whether_answer'] = df['whether_answer'].map({'已回复': 1, '未回复': 0})
+    # 处理question缺失值
+    df = df[df['question'].notna()]
+
+    # 计算时间差（向量化操作）
+    print("计算时间差...")
+    mask = df['whether_answer'] == 1
+    # 标准化时间格式
+    df['datetime'] = df['datetime'].apply(standardize_datetime)
+    df.loc[mask, 'reply_time'] = df.loc[mask, 'reply_time'].apply(standardize_datetime)
+    # 计算时间差
+    df.loc[mask, 'time_diff'] = pd.to_datetime(df.loc[mask, 'reply_time']) - pd.to_datetime(df.loc[mask, 'datetime'])
+    df['time_diff'] = df['time_diff'].dt.total_seconds() / (24 * 3600)  # 转换为天数
+    df['time_diff'] = df['time_diff'].round(2)
+    
+    # 计算字符数
+    print("计算字符数...")
+    df['question_length'] = df['question'].str.len()
+    # 只对有回复的行计算回复长度
+    df['reply_length'] = 0  # 初始化为0
+    df.loc[mask, 'reply_length'] = df.loc[mask, 'reply'].str.len()
+    
+    # 批量处理情感分析
+    print("处理情感分析...")
+    # 处理问题
+    question_results = process_batch(df['question'].tolist(), model, tokenizer, device)
+    df['q_sentiment_score'] = [r[0] for r in question_results]
+    df['q_sentiment_label'] = [r[1] for r in question_results]
+    q_embeddings = [r[2] for r in question_results]
+    
+    # 创建索引映射
+    idx_to_embedding = {idx: emb for idx, emb in zip(df.index, q_embeddings)}
+    
+    # 处理回复
+    reply_texts = df.loc[mask, 'reply'].tolist()
+    reply_results = process_batch(reply_texts, model, tokenizer, device)
+    
+    # 初始化结果列
+    df['a_sentiment_score'] = -1.0  # 改为浮点数
+    df['a_sentiment_label'] = -1
+    df['similarity'] = 0.0  # 改为浮点数
+    
+    # 填充回复结果
+    reply_idx = 0
+    for idx in df.index:
+        if df.loc[idx, 'whether_answer'] == 1:
+            a_score, a_label, a_embedding = reply_results[reply_idx]
+            df.loc[idx, 'a_sentiment_score'] = a_score
+            df.loc[idx, 'a_sentiment_label'] = a_label
+            df.loc[idx, 'similarity'] = cosine_similarity([idx_to_embedding[idx]], [a_embedding])[0][0]
+            reply_idx += 1
+    
+    # 保存结果
+    output_path = "F:/论文/投资者论坛/result/20250815新能源产业链股票文本因子加工/text_factor_NewRecycle.csv"
+    df.to_csv(output_path, index=False)
+    print(f"结果已保存至: {output_path}")
+    
+    # 打印统计信息
+    print("\n统计信息:")
+    print("\n问题情感标签分布:")
+    print(df['q_sentiment_label'].value_counts().sort_index())
+    print("\n回复情感标签分布:")
+    print(df['a_sentiment_label'].value_counts().sort_index())
+    print("\n相似度统计:")
+    print(df['similarity'].describe())
+    print("\n时间差统计（天）:")
+    print(df['time_diff'].describe())
+    print("\n字符数统计:")
+    print("\n问题字符数:")
+    print(df['question_length'].describe())
+    print("\n回复字符数:")
+    print(df['reply_length'].describe())
+
+if __name__ == "__main__":
+    main() 

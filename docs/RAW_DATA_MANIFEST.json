@@ -1,0 +1,147 @@
+{
+  "text_and_annotations_included": false,
+  "raw_files": [
+    {
+      "source_absolute_path": "F:\\002论文\\20260807投资者论坛RDIGF\\data\\raw\\stock_data\\OHLC\\TRD_FwardQuotation1.xlsx",
+      "file": "data/raw/stock/TRD_FwardQuotation1.xlsx",
+      "bytes": 8489660,
+      "sha256": "3d53a71aa304fbb761bac0310a63459d81dc15d0d1566ee41e791c8d9f6d8ecd",
+      "operation": "byte-for-byte copy",
+      "source_rows_including_metadata": 68637,
+      "columns": [
+        "TradingDate",
+        "Symbol",
+        "ShortName",
+        "Filling",
+        "OpenPrice",
+        "ClosePrice",
+        "HighPrice",
+        "LowPrice",
+        "Volume",
+        "Amount",
+        "Distance",
+        "StateCode",
+        "AvgPrice",
+        "ChangeRatio",
+        "TotalShare",
+        "CirculatedShare",
+        "TurnoverRate1",
+        "MarketValue",
+        "CirculatedMarketValue",
+        "ACirculatedShare",
+        "BCirculatedShare",
+        "AValue",
+        "BValue",
+        "Capchgdt"
+      ],
+      "valid_date_rows": 68635,
+      "date_range": [
+        "2014-08-25",
+        "2018-08-22"
+      ],
+      "metadata_or_invalid_date_rows": 2,
+      "stock_count": 73
+    },
+    {
+      "source_absolute_path": "F:\\002论文\\20260807投资者论坛RDIGF\\data\\raw\\stock_data\\OHLC\\TRD_FwardQuotation2.xlsx",
+      "file": "data/raw/stock/TRD_FwardQuotation2.xlsx",
+      "bytes": 9669185,
+      "sha256": "732d79bf25841276224c5d05f48c468a918d5c37e2f3ffba1d8408e60555609b",
+      "operation": "byte-for-byte copy",
+      "source_rows_including_metadata": 76141,
+      "columns": [
+        "TradingDate",
+        "Symbol",
+        "ShortName",
+        "Filling",
+        "OpenPrice",
+        "ClosePrice",
+        "HighPrice",
+        "LowPrice",
+        "Volume",
+        "Amount",
+        "Distance",
+        "StateCode",
+        "AvgPrice",
+        "ChangeRatio",
+        "TotalShare",
+        "CirculatedShare",
+        "TurnoverRate1",
+        "MarketValue",
+        "CirculatedMarketValue",
+        "ACirculatedShare",
+        "BCirculatedShare",
+        "AValue",
+        "BValue",
+        "Capchgdt"
+      ],
+      "valid_date_rows": 76139,
+      "date_range": [
+        "2018-08-22",
+        "2022-08-19"
+      ],
+      "metadata_or_invalid_date_rows": 2,
+      "stock_count": 73
+    },
+    {
+      "source_absolute_path": "F:\\002论文\\20260807投资者论坛RDIGF\\data\\raw\\stock_data\\OHLC\\TRD_FwardQuotation3.xlsx",
+      "file": "data/raw/stock/TRD_FwardQuotation3.xlsx",
+      "bytes": 9780468,
+      "sha256": "7e337014c3e00c1a8840c2c1e133382555689e95cbec1999ceb95358be67b608",
+      "operation": "byte-for-byte copy",
+      "source_rows_including_metadata": 76214,
+      "columns": [
+        "TradingDate",
+        "Symbol",
+        "ShortName",
+        "Filling",
+        "OpenPrice",
+        "ClosePrice",
+        "HighPrice",
+        "LowPrice",
+        "Volume",
+        "Amount",
+        "Distance",
+        "StateCode",
+        "AvgPrice",
+        "ChangeRatio",
+        "TotalShare",
+        "CirculatedShare",
+        "TurnoverRate1",
+        "MarketValue",
+        "CirculatedMarketValue",
+        "ACirculatedShare",
+        "BCirculatedShare",
+        "AValue",
+        "BValue",
+        "Capchgdt"
+      ],
+      "valid_date_rows": 76212,
+      "date_range": [
+        "2022-08-22",
+        "2026-08-20"
+      ],
+      "metadata_or_invalid_date_rows": 2,
+      "stock_count": 73
+    },
+    {
+      "source_absolute_path": "F:\\002论文\\20260807投资者论坛RDIGF\\data\\raw\\stock_data\\新能源汽车产业链指数.xlsx",
+      "file": "data/raw/wind/新能源汽车产业链指数.xlsx",
+      "bytes": 45085,
+      "sha256": "245ab9d2c23811a0cad8e9e2eab984450ac5f93375b0633cd7878b59b3e841fd",
+      "operation": "byte-for-byte copy",
+      "source_rows_including_metadata": 1772,
+      "columns": [
+        "Date",
+        "close"
+      ],
+      "valid_date_rows": 1772,
+      "date_range": [
+        "2018-05-18",
+        "2025-09-01"
+      ],
+      "metadata_or_invalid_date_rows": 0
+    }
+  ],
+  "stock_union_count": 73
+}

@@ -1,0 +1,43 @@
+{
+  "labels": "F:\\002论文\\20260807投资者论坛RDIGF\\outputs\\github_release_20261029\\repository\\private\\annotations.xlsx",
+  "qa": "F:\\002论文\\20260807投资者论坛RDIGF\\outputs\\github_release_20261029\\repository\\private\\qa.csv",
+  "work_dir": "F:\\002论文\\20260807投资者论坛RDIGF\\outputs\\github_release_20261029\\repository\\work\\run_001",
+  "seed": 42,
+  "device": "auto",
+  "max_length": 256,
+  "batch_size": 16,
+  "epochs": 3,
+  "learning_rate": 2e-05,
+  "weight_decay": 0.01,
+  "expected_companies": null,
+  "selection_mode": "historical_macbert",
+  "models": {
+    "macbert": {
+      "repo": "hfl/chinese-macbert-base"
+    },
+    "finbert": {
+      "repo": "yiyanghkust/finbert-tone-chinese"
+    },
+    "hw2942": {
+      "repo": "hw2942/bert-base-chinese-finetuning-financial-news-sentiment-v2"
+    }
+  },
+  "label_maps": {},
+  "template_phrases": [
+    "感谢您对公司的关注",
+    "谢谢关注",
+    "您好",
+    "感谢您的提问"
+  ],
+  "event_patterns": {
+    "financial_performance": "业绩|营业收入|营收|净利润|利润|盈利|亏损|毛利|现金流|年报|季报",
+    "major_contract": "重大合同|订单|中标|签约|供货协议",
+    "capacity": "产能|产量|投产|扩产|达产|生产线|停产|复产",
+    "price": "产品价格|原材料价格|锂价|电池价格|涨价|降价|调价",
+    "litigation": "诉讼|仲裁|法院|判决|裁定",
+    "regulation": "监管|证监会|交易所问询|问询函|立案调查|行政处罚",
+    "risk": "经营风险|财务风险|项目风险|债务|违约|质押|爆仓|退市风险",
+    "holding_change": "减持|增持|回购|持股变动|股份转让|员工持股",
+    "industry_policy": "行业政策|产业政策|补贴政策|税收政策|关税|工信部|发改委|双积分"
+  }
+}

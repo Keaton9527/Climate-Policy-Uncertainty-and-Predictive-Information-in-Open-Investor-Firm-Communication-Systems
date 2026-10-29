@@ -1,0 +1,19 @@
+model_path:
+  hw2942: 'hw2942/bert-base-chinese-finetuning-financial-news-sentiment-v2'
+  fengshenbang: 'IDEA-CCNL/Erlangshen-Roberta-110M-Sentiment'
+  finbert: 'yiyanghkust/finbert-tone-chinese'
+  macbert-finetuned: './macbert_finetuned'
+
+data_path:
+  guba: 'F:/NewEnergyForecasting2024/dataset/text_data/verify_data/guba_df.csv'
+  finicial_news: 'F:/NewEnergyForecasting2024/dataset/text_data/verify_data/hugging_face_finicial_news.csv'
+  news_df: 'F:/NewEnergyForecasting2024/dataset/text_data/verify_data/news_df.csv'
+  CSI_600: 'F:/论文/投资者论坛/dataset/text_data/verify_data/Qwen_test.csv'
+  CSI_4000: 'F:/论文/投资者论坛/dataset/text_data/verify_data/沪深300股票问答数据-4000条-test.csv'
+
+save_path: 
+  guba: 'F:/NewEnergyForecasting2024/result/20250422验证打分/guba'
+  finicial_news: 'F:/NewEnergyForecasting2024/result/20250422验证打分/finicial_news'
+  news_df: 'F:/NewEnergyForecasting2024/result/20250422验证打分/news_df'
+  CSI_600: 'F:/论文/投资者论坛/result/20250522千问大模型测试训练结果'
+  CSI_4000: 'F:/论文/投资者论坛/result/20250528更换MacBert模型的微调效果/CSI_4000'

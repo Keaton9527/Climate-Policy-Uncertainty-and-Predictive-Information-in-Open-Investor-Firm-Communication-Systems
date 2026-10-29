@@ -1,0 +1,83 @@
+import pandas as pd
+import numpy as np
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+import os
+
+def load_results(file_path):
+    """加载预测结果文件"""
+    df = pd.read_csv(file_path)
+    # 清理数据：删除包含NA的行
+    df = df.dropna(subset=['label', 'pos', 'neg', 'neu'])
+    return df
+
+def calculate_metrics(true_labels, predictions):
+    """计算评估指标"""
+    # 确保标签都是整数类型
+    true_labels = np.array(true_labels, dtype=int)
+    predictions = np.array(predictions, dtype=int)
+    
+    metrics = {}
+
+    Acc = accuracy_score(true_labels, predictions)
+    metrics['Acc'] = Acc
+    
+    # 计算每个类别的准确率
+    for i, label in enumerate(['Negative', 'Neutral', 'Positive']):
+        # 计算该类别的准确率
+        correct = sum((true_labels == i) & (predictions == i))
+        total = sum(true_labels == i)
+        accuracy = correct / total if total > 0 else 0
+        metrics[label] = accuracy
+    
+    return metrics
+
+def main():
+    # 设置结果目录
+    result_dir = r"F:\论文\投资者论坛\result\20250528更换MacBert模型的微调效果"
+    
+    # 模型名称列表
+    model_names = ['macbert-finetuned', 'finbert', 'hw2942']
+    
+    # 存储所有模型的结果
+    all_results = {}
+    
+    # 读取每个模型的结果
+    for model_name in model_names:
+        file_path = os.path.join(result_dir, f'CSI_4000_{model_name}.csv')
+        df = load_results(file_path)
+        
+        print(f"\n{model_name}模型数据统计:")
+        print(f"总样本数: {len(df)}")
+        print(f"标签分布:\n{df['label'].value_counts().sort_index()}")
+        
+        # 获取真实标签和预测标签
+        true_labels = df['label'].astype(int)
+        
+        # 根据概率值确定预测标签
+        predictions = []
+        for _, row in df.iterrows():
+            probs = [row['pos'], row['neg'], row['neu']]
+            # 将概率转换为对应的标签值
+            pred_label = 2 if probs[0] > max(probs[1], probs[2]) else (0 if probs[1] > probs[2] else 1)
+            predictions.append(pred_label)
+        
+        # 计算评估指标
+        metrics = calculate_metrics(true_labels, predictions)
+        all_results[model_name] = metrics
+        
+        # 打印每个模型的结果
+        print(f"\n{model_name}模型评估结果:")
+        for label, accuracy in metrics.items():
+            print(f"{label}: {accuracy:.4f}")
+    
+    # 创建比较表格
+    comparison_df = pd.DataFrame(all_results).T
+    print("\n模型性能比较:")
+    print(comparison_df)
+    
+    # 保存比较结果
+    comparison_df.to_csv(os.path.join(result_dir, 'model_comparison.csv'))
+    print(f"\n比较结果已保存至: {os.path.join(result_dir, 'model_comparison.csv')}")
+
+if __name__ == "__main__":
+    main()
