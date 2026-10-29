@@ -2,7 +2,7 @@ seed: 42
 jobs: 4
 paths:
   market: data/TRD_FwardQuotation*.xlsx
-  qa: data/qa.csv
+  qa: data/新能源产业链文本数据.csv.gz
   annotations: data/annotations.xlsx
   nev_index: data/nev_index.xlsx
   ccpu: data/ccpu.xlsx
